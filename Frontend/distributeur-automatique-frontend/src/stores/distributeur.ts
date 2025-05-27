@@ -1,4 +1,3 @@
-
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import api from '@/services/api'
@@ -82,7 +81,12 @@ export const useDistributeurStore = defineStore('distributeur', () => {
       panier.value = [] // Réinitialise le panier après achat
       return transaction.value
     } catch (error) {
-      alert(error.response?.data?.erreur || "Erreur lors du paiement")
+      if (typeof error === 'object' && error !== null && 'response' in error) {
+        // @ts-ignore
+        alert(error.response?.data?.erreur || "Erreur lors du paiement")
+      } else {
+        alert("Erreur lors du paiement")
+      }
     }
   }
    // Retourne les états, getters et actions accessibles depuis les composants Vue
@@ -100,4 +104,3 @@ export const useDistributeurStore = defineStore('distributeur', () => {
   }
 }
 );
-

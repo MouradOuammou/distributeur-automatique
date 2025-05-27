@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import DistributeurView from '@/views/DistributeurView.vue'
 import ConfirmationView from '@/views/ConfirmationView.vue'
-import { useDistributeurStore } from '@/stores/distributeurStore'
 import type { RouteLocationNormalized } from 'vue-router'
-
+import { useDistributeurStore } from '@/stores/distributeur'
+ const store = useDistributeurStore()
 const routes = [
   {
     path: '/',
@@ -15,7 +15,7 @@ const routes = [
     name: 'confirmation',
     component: ConfirmationView,
     beforeEnter: (to: RouteLocationNormalized, from: RouteLocationNormalized) => {
-      const store = useDistributeurStore()
+
       if (!store.transaction) {
         return { path: '/' } // Redirige si pas de transaction
       }
@@ -29,4 +29,7 @@ const router = createRouter({
   routes
 })
 
-export default router
+export default router ;
+
+
+

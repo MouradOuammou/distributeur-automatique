@@ -64,5 +64,13 @@ class ServiceDistributeur {
     };
   }
 
-    
+/**
+   * Finalise l'achat et prépare la réponse
+   * @returns {Object} {produits: Array, monnaie: Object}
+   */
+  finaliserAchat() {
+    return this.distributeur.finaliserAchat();
+  }
 }
+
+module.exports = ServiceDistributeur;

@@ -57,4 +57,18 @@ export const useDistributeurStore = defineStore('distributeur', () => {
     }
   }
 
+    /**
+   * Ajoute un produit au panier
+   * @param {number} idProduit - ID du produit sélectionné
+   */
+  async function ajouterAuPanier(idProduit) {
+    try {
+      const response = await api.post('/api/panier', { idProduit })
+      panier.value = response.data.panier
+      solde.value = response.data.solde
+      produits.value = response.data.produits
+    } catch (error) {
+      alert(error.response?.data?.erreur || "Erreur lors de l'ajout")
+    }
+  }
 }

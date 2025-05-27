@@ -19,3 +19,13 @@ const validateBody = (req, res, next) => {
  * GET /api - Récupère l'état courant
  */
 router.get('/', controleur.obtenirEtat.bind(controleur));
+
+/**
+ * POST /api/pieces - Insère une pièce
+ * @body {number} montant - Valeur de la pièce
+ */
+router.post('/pieces', 
+  express.json(),
+  validateBody,
+  controleur.insererPiece.bind(controleur)
+);

@@ -51,4 +51,18 @@ class ServiceDistributeur {
     this.distributeur.ajouterAuPanier(idProduit);
     return this.obtenirEtatDistributeur();
   }
+
+    /**
+   * Annule la transaction en cours
+   * @returns {Object} {remboursement: number, ...état}
+   */
+  annulerTransaction() {
+    const remboursement = this.distributeur.annulerTransaction();
+    return {
+      remboursement,
+      ...this.obtenirEtatDistributeur()
+    };
+  }
+
+    
 }

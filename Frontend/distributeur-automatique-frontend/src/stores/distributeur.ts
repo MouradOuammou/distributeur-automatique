@@ -2,23 +2,26 @@ import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import api from '@/services/api'
 
+import type { Produit } from '@/models/Produit'
+import type { PanierItem } from '@/models/PanierItem'
+import type { Transaction } from '@/models/Transaction'
 
 // Définition du store Pinia pour gérer l'état du distributeur automatique
 
-
 export const useDistributeurStore = defineStore('distributeur', () => {
-    // Montant inséré par l'utilisateur
-  const solde = ref(0)
+  // Montant inséré par l'utilisateur
+  const solde = ref<number>(0)
 
   // Liste des produits disponibles dans le distributeur
-  const produits = ref([])
+  const produits = ref<Produit[]>([])
 
   // Liste des produits ajoutés au panier par l'utilisateur
-  const panier = ref([])
+  const panier = ref<PanierItem[]>([])
 
   // Résultat de la dernière transaction (produits achetés et monnaie rendue)
-  const transaction = ref(null)
-   // --- GETTERS COMPUTÉS ---
+  const transaction = ref<Transaction | null>(null)
+
+  // --- GETTERS COMPUTÉS ---
 
   // Liste des produits que l'utilisateur peut acheter selon son solde
   const produitsAchetables = computed(() =>
@@ -27,8 +30,9 @@ export const useDistributeurStore = defineStore('distributeur', () => {
 
   // Calcul du total du panier
   const totalPanier = computed(() =>
-    panier.value.reduce((sum, item) => sum + item.prix, 0)
+    panier.value.reduce((sum, item) => sum + item.prix * (item.quantite ?? 1), 0)
   )
+
   // --- ACTIONS ASYNC ---
 
   /**
@@ -36,51 +40,52 @@ export const useDistributeurStore = defineStore('distributeur', () => {
    */
   async function chargerProduits() {
     try {
-      const response = await api.get('/api')
+      const response = await api.get<{ produits: Produit[] }>('/api')
       produits.value = response.data.produits
     } catch (error) {
       console.error("Erreur chargement produits:", error)
     }
   }
-    /**
+
+  /**
    * Insère une pièce dans le distributeur
    * @param {number} montant - Le montant de la pièce insérée
    */
-  async function insererPiece(montant) {
+  async function insererPiece(montant: number) {
     try {
-      const response = await api.post('/api/pieces', { montant })
+      const response = await api.post<{ solde: number, produits: Produit[] }>('/api/pieces', { montant })
       solde.value = response.data.solde
       produits.value = response.data.produits
-    } catch (error) {
+    } catch (error: any) {
       alert(error.response?.data?.erreur || "Erreur lors de l'insertion")
     }
   }
 
-    /**
+  /**
    * Ajoute un produit au panier
    * @param {number} idProduit - ID du produit sélectionné
    */
-  async function ajouterAuPanier(idProduit) {
+  async function ajouterAuPanier(idProduit: number) {
     try {
-      const response = await api.post('/api/panier', { idProduit })
+      const response = await api.post<{ panier: PanierItem[], solde: number, produits: Produit[] }>('/api/panier', { idProduit })
       panier.value = response.data.panier
       solde.value = response.data.solde
       produits.value = response.data.produits
-    } catch (error) {
+    } catch (error: any) {
       alert(error.response?.data?.erreur || "Erreur lors de l'ajout")
     }
   }
 
-    /**
+  /**
    * Finalise l'achat : récupère la monnaie rendue et les produits achetés
    */
   async function finaliserAchat() {
     try {
-      const response = await api.post('/api/paiement')
+      const response = await api.post<Transaction>('/api/paiement')
       transaction.value = response.data
       panier.value = [] // Réinitialise le panier après achat
       return transaction.value
-    } catch (error) {
+    } catch (error: any) {
       if (typeof error === 'object' && error !== null && 'response' in error) {
         // @ts-ignore
         alert(error.response?.data?.erreur || "Erreur lors du paiement")
@@ -89,7 +94,8 @@ export const useDistributeurStore = defineStore('distributeur', () => {
       }
     }
   }
-   // Retourne les états, getters et actions accessibles depuis les composants Vue
+
+  // Retourne les états, getters et actions accessibles depuis les composants Vue
   return {
     solde,
     produits,
@@ -102,5 +108,4 @@ export const useDistributeurStore = defineStore('distributeur', () => {
     ajouterAuPanier,
     finaliserAchat
   }
-}
-);
+})

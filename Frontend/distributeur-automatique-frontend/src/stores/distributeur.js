@@ -19,5 +19,16 @@ export const useDistributeurStore = defineStore('distributeur', () => {
 
   // Résultat de la dernière transaction (produits achetés et monnaie rendue)
   const transaction = ref(null)
+   // --- GETTERS COMPUTÉS ---
+
+  // Liste des produits que l'utilisateur peut acheter selon son solde
+  const produitsAchetables = computed(() =>
+    produits.value.filter(p => p.achetable)
+  )
+
+  // Calcul du total du panier
+  const totalPanier = computed(() =>
+    panier.value.reduce((sum, item) => sum + item.prix, 0)
+  )
 
 }

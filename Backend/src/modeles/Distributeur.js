@@ -15,5 +15,18 @@ class Distributeur {
     this.panier = []; // Produits sélectionnés par l'utilisateur
     this.piecesAcceptees = [0.5, 1, 2, 5, 10]; // Pièces acceptées par la machine
   }
+ 
   
+  /**
+   * Insère une pièce dans le distributeur
+   * @param {number} montant - Valeur de la pièce insérée
+   * @throws {Error} Si la pièce n'est pas acceptée
+   */
+  insererPiece(montant) {
+    if (!this.piecesAcceptees.includes(montant)) {
+      throw new Error("Pièce non acceptée");
+    }
+    // Arrondi à 2 décimales pour éviter les erreurs de calcul
+    this.solde = parseFloat((this.solde + montant).toFixed(2));
+  }
 }

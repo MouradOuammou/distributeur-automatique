@@ -18,17 +18,20 @@ const { solde } = storeToRefs(store)
 
 <style scoped>
 header {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%);
   background: #42b983;
   padding: 1rem;
   color: white;
-  display: flex;
-  justify-content: space-between;
+  text-align: center;
 }
 .solde {
   font-weight: bold;
   background: white;
   color: #42b983;
-  padding: 0.5rem 1rem;
+  padding: 1.5rem 1rem;
   border-radius: 4px;
 }
 </style>

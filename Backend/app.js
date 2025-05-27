@@ -29,7 +29,7 @@ app.use((req, res) => {
 app.use((err, req, res, next) => {
   console.error(`[Erreur] ${err.stack}`);
   
-  const res = {
+  const response = {
     erreur: "erreur est survenue",
     ...(process.env.NODE_ENV === 'development' && {
       details: err.message,
@@ -37,7 +37,7 @@ app.use((err, req, res, next) => {
     })
   };
 
-  res.status(err.status || 500).json(res);
+  res.status(err.status || 500).json(response);
 });
 
 module.exports = app;

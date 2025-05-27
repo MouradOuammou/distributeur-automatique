@@ -71,4 +71,18 @@ export const useDistributeurStore = defineStore('distributeur', () => {
       alert(error.response?.data?.erreur || "Erreur lors de l'ajout")
     }
   }
+
+    /**
+   * Finalise l'achat : récupère la monnaie rendue et les produits achetés
+   */
+  async function finaliserAchat() {
+    try {
+      const response = await api.post('/api/paiement')
+      transaction.value = response.data
+      panier.value = [] // Réinitialise le panier après achat
+      return transaction.value
+    } catch (error) {
+      alert(error.response?.data?.erreur || "Erreur lors du paiement")
+    }
+  }
 }

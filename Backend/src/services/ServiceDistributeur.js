@@ -41,4 +41,14 @@ class ServiceDistributeur {
     this.distributeur.insererPiece(montant);
     return this.obtenirEtatDistributeur();
   }
+
+   /**
+   * Ajoute un produit au panier et retourne le nouvel état
+   * @param {number} idProduit - ID du produit
+   * @returns {Object} État mis à jour
+   */
+  ajouterAuPanier(idProduit) {
+    this.distributeur.ajouterAuPanier(idProduit);
+    return this.obtenirEtatDistributeur();
+  }
 }

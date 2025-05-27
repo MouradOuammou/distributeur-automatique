@@ -83,4 +83,21 @@ class DistributeurControleur {
       });
     }
   }
+/**
+   * POST /api/paiement - Finalise l'achat
+   */
+  async finaliserAchat(req, res) {
+    try {
+      const resultat = this.service.finaliserAchat();
+      res.json(resultat);
+    } catch (erreur) {
+      console.error("[Contrôleur] finaliserAchat:", erreur);
+      res.status(500).json({ 
+        erreur: "Erreur lors du paiement",
+        details: process.env.NODE_ENV === 'development' ? erreur.message : undefined
+      });
+    }
+  }
 }
+
+module.exports = DistributeurControleur;

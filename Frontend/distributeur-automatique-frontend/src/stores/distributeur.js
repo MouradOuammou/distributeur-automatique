@@ -43,5 +43,18 @@ export const useDistributeurStore = defineStore('distributeur', () => {
       console.error("Erreur chargement produits:", error)
     }
   }
+    /**
+   * Insère une pièce dans le distributeur
+   * @param {number} montant - Le montant de la pièce insérée
+   */
+  async function insererPiece(montant) {
+    try {
+      const response = await api.post('/api/pieces', { montant })
+      solde.value = response.data.solde
+      produits.value = response.data.produits
+    } catch (error) {
+      alert(error.response?.data?.erreur || "Erreur lors de l'insertion")
+    }
+  }
 
 }

@@ -32,4 +32,13 @@ class ServiceDistributeur {
       }))
     };
   }
+  /**
+   * Insère une pièce et retourne le nouvel état
+   * @param {number} montant - Valeur de la pièce
+   * @returns {Object} État mis à jour
+   */
+  insererPiece(montant) {
+    this.distributeur.insererPiece(montant);
+    return this.obtenirEtatDistributeur();
+  }
 }

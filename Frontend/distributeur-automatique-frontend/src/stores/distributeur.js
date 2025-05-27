@@ -30,5 +30,18 @@ export const useDistributeurStore = defineStore('distributeur', () => {
   const totalPanier = computed(() =>
     panier.value.reduce((sum, item) => sum + item.prix, 0)
   )
+  // --- ACTIONS ASYNC ---
+
+  /**
+   * Charge les produits et le solde actuels depuis le backend
+   */
+  async function chargerProduits() {
+    try {
+      const response = await api.get('/api')
+      produits.value = response.data.produits
+    } catch (error) {
+      console.error("Erreur chargement produits:", error)
+    }
+  }
 
 }

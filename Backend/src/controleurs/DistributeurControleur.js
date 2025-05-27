@@ -23,10 +23,30 @@ class DistributeurControleur {
     } catch (erreur) {
       console.error("[Contrôleur] obtenirEtat:", erreur);
       res.status(500).json({ 
-        erreur: "Erreur lors de la récupération de l'état",
+        erreur: "Erreur  de la récupération de l'état",
         details: process.env.NODE_ENV === 'development' ? erreur.message : undefined
       });
     }
   }
-  
+    /**
+   * POST /api/pieces - Insère une pièce
+   */
+  async insererPiece(req, res) {
+    try {
+      const { montant } = req.body;
+      
+      if (montant === undefined || isNaN(montant)) {
+        return res.status(400).json({ erreur: "Montant invalide ! " });
+      }
+
+      const etat = this.service.insererPiece(parseFloat(montant));
+      res.json(etat);
+    } catch (erreur) {
+      console.error("[Contrôleur] insererPiece:", erreur);
+      res.status(400).json({ 
+        erreur: erreur.message || "Erreur  de l'insertion"
+      });
+    }
+  }
+
 }

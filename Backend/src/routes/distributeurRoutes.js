@@ -21,7 +21,7 @@ const validateBody = (req, res, next) => {
 router.get('/', controleur.obtenirEtat.bind(controleur));
 
 /**
- * POST /api/pieces - Insère une pièce
+ * POST /api/pieces - Insère une pièce 
  * @body {number} montant - Valeur de la pièce
  */
 router.post('/pieces', 

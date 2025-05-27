@@ -6,8 +6,8 @@
     "test": "tests"
   },
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js",
+    "start": "node serveur.js",
+    "dev": "nodemon serveur.js",
     "lint": "eslint .",
     "test": "jest --coverage"
   },

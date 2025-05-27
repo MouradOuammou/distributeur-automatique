@@ -44,3 +44,12 @@ router.post('/panier',
  * POST /api/annuler - Annule la transaction
  */
 router.post('/annuler', controleur.annulerTransaction.bind(controleur));
+
+
+/**
+ * POST /api/paiement - Finalise l'achat 
+ */
+router.post('/paiement', controleur.finaliserAchat.bind(controleur));
+
+module.exports = router;
+

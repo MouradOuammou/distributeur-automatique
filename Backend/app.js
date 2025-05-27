@@ -22,3 +22,22 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use((req, res) => {
   res.status(404).json({ erreur: " Erreur , Endpoint non trouvé ! " });
 });
+
+
+
+// Middleware de gestion d'erreurs 
+app.use((err, req, res, next) => {
+  console.error(`[Erreur] ${err.stack}`);
+  
+  const res = {
+    erreur: "erreur est survenue",
+    ...(process.env.NODE_ENV === 'development' && {
+      details: err.message,
+      stack: err.stack
+    })
+  };
+
+  res.status(err.status || 500).json(res);
+});
+
+module.exports = app;

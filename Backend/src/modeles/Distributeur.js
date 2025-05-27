@@ -52,4 +52,29 @@ class Distributeur {
   viderPanier() {
     this.panier = [];
   }
+    /**
+   * Annule la transaction en cours :
+   * - Rembourse le solde restant.
+   * - Réintègre les produits du panier au stock.
+   * - Vide le panier et remet le solde à zéro.
+   * @returns {number} Le montant remboursé à l'utilisateur.
+   */
+  annulerTransaction() {
+    const remboursement = this.solde;
+
+    // Réintègre les produits du panier dans le stock
+    this.panier.forEach(produit => {
+      const prodStock = this.produits.find(p => p.id === produit.id);
+      if (prodStock) prodStock.quantite++;
+    });
+
+    // Réinitialise solde et panier
+    this.solde = 0;
+    this.viderPanier();
+
+    // Retourne la somme à rembourser
+    return remboursement;
+  }
+
+  
 }

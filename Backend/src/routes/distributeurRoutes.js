@@ -14,3 +14,8 @@ const validateBody = (req, res, next) => {
   }
   next();
 };
+
+/**
+ * GET /api - Récupère l'état courant
+ */
+router.get('/', controleur.obtenirEtat.bind(controleur));

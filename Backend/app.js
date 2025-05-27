@@ -18,3 +18,7 @@ app.use('/api', require('./routes/distributeurRoutes'));
 // Servir les fichiers statiques (pour le frontend si intégré)
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Gestion des routes non trouvées
+app.use((req, res) => {
+  res.status(404).json({ erreur: " Erreur , Endpoint non trouvé ! " });
+});

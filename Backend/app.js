@@ -10,3 +10,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+
+
+// Routes API
+app.use('/api', require('./routes/distributeurRoutes'));

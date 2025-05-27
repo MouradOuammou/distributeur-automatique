@@ -29,3 +29,13 @@ router.post('/pieces',
   validateBody,
   controleur.insererPiece.bind(controleur)
 );
+
+/**
+ * POST /api/panier - Ajoute un produit au panier
+ * @body {number} idProduit - ID du produit
+ */
+router.post('/panier',
+  express.json(),
+  validateBody,
+  controleur.ajouterAuPanier.bind(controleur)
+);

@@ -100,5 +100,26 @@ class Distributeur {
 
     return result;
   }
-  
+    /**
+   * Finalise l'achat en :
+   * - Calculant la monnaie à rendre.
+   * - Récupérant la liste des produits achetés.
+   * - Réinitialisant le distributeur pour la prochaine transaction.
+   * @returns {Object} Un objet contenant les produits achetés et la monnaie rendue.
+   */
+  finaliserAchat() {
+    // Calcule la monnaie à rendre avec le solde restant
+    const monnaie = this.calculerMonnaieOptimale(this.solde);
+    // Copie des produits achetés
+    const produitsAchetes = [...this.panier];
+
+    // Réinitialisation pour une nouvelle transaction
+    this.solde = 0;
+    this.viderPanier();
+
+    // Retourne les produits et la monnaie rendue
+    return { produits: produitsAchetes, monnaie };
+  }
 }
+
+module.exports = Distributeur;

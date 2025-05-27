@@ -29,4 +29,20 @@ class Distributeur {
     // Arrondi à 2 décimales pour éviter les erreurs de calcul
     this.solde = parseFloat((this.solde + montant).toFixed(2));
   }
+
+    /**
+   * Ajoute un produit au panier
+   * @param {number} idProduit - ID du produit à ajouter
+   * @throws {Error} Si produit non trouvé, épuisé ou solde insuffisant
+   */
+    ajouterAuPanier(idProduit) {
+    const produit = this.produits.find(p => p.id === idProduit);
+    if (!produit) throw new Error("Produit non trouvé");
+    if (produit.quantite <= 0) throw new Error("Produit épuisé");
+    if (this.solde < produit.prix) throw new Error("Solde insuffisant");
+
+    this.panier.push(produit);
+    this.solde = parseFloat((this.solde - produit.prix).toFixed(2));
+    produit.quantite--; // Décrémente le stock
+  }
 }

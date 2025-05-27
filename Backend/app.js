@@ -14,3 +14,7 @@ const path = require('path');
 
 // Routes API
 app.use('/api', require('./routes/distributeurRoutes'));
+
+// Servir les fichiers statiques (pour le frontend si intégré)
+app.use(express.static(path.join(__dirname, 'public')));
+

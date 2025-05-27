@@ -68,5 +68,19 @@ class DistributeurControleur {
       });
     }
   }
-
+    /**
+   * POST /api/annuler - Annule la transaction
+   */
+  async annulerTransaction(req, res) {
+    try {
+      const resultat = this.service.annulerTransaction();
+      res.json(resultat);
+    } catch (erreur) {
+      console.error("[Contrôleur] annuler Transaction:", erreur);
+      res.status(500).json({ 
+        erreur: "Erreur lors de l'annulation ! ",
+        details: process.env.NODE_ENV === 'development' ? erreur.message : undefined
+      });
+    }
+  }
 }

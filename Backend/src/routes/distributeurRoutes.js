@@ -39,3 +39,8 @@ router.post('/panier',
   validateBody,
   controleur.ajouterAuPanier.bind(controleur)
 );
+
+/**
+ * POST /api/annuler - Annule la transaction
+ */
+router.post('/annuler', controleur.annulerTransaction.bind(controleur));

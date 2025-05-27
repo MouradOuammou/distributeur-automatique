@@ -85,4 +85,19 @@ export const useDistributeurStore = defineStore('distributeur', () => {
       alert(error.response?.data?.erreur || "Erreur lors du paiement")
     }
   }
+   // Retourne les états, getters et actions accessibles depuis les composants Vue
+  return {
+    solde,
+    produits,
+    panier,
+    transaction,
+    produitsAchetables,
+    totalPanier,
+    chargerProduits,
+    insererPiece,
+    ajouterAuPanier,
+    finaliserAchat
+  }
 }
+);
+

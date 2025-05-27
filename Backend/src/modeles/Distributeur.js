@@ -45,4 +45,11 @@ class Distributeur {
     this.solde = parseFloat((this.solde - produit.prix).toFixed(2));
     produit.quantite--; // Décrémente le stock
   }
+
+    /**
+   * Vide le panier de l'utilisateur.
+   */
+  viderPanier() {
+    this.panier = [];
+  }
 }

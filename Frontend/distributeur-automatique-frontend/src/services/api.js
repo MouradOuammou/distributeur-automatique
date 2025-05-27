@@ -4,6 +4,21 @@ import axios from 'axios'
 const api = axios.create({
   baseURL: 'http://localhost:3000', // URL de base pour toutes les requêtes (backend local)
   headers: {
-    'Content-Type': 'application/json' // Type de contenu par défaut pour les requêtes POST/PUT
+    'Content-Type': 'application/json'
   }
 })
+
+
+
+// Intercepteur de réponse pour gérer les erreurs
+  response => response,
+  error => {
+    // Si une réponse d'erreur est disponible (erreur côté backend)
+    if (error.response) {
+      console.error('Erreur API !:', error.response.data) // Affiche le message d'erreur de l'API
+    } else {
+      console.error('Erreur réseau !:', error.message)
+    }
+    return Promise.reject(error)
+  }
+export default api

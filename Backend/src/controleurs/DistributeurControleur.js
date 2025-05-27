@@ -48,5 +48,25 @@ class DistributeurControleur {
       });
     }
   }
+  /**
+   * POST /api/panier - Ajoute un produit au panier
+   */
+  async ajouterAuPanier(req, res) {
+    try {
+      const { idProduit } = req.body;
+      
+      if (!idProduit) {
+        return res.status(400).json({ erreur: "id produit manquant !" });
+      }
+
+      const etat = this.service.ajouterAuPanier(parseInt(idProduit));
+      res.json(etat);
+    } catch (erreur) {
+      console.error("[Contrôleur] ajouterAuPanier:", erreur);
+      res.status(400).json({ 
+        erreur: erreur.message || "Erreur lors de l'ajout au panier ! "
+      });
+    }
+  }
 
 }

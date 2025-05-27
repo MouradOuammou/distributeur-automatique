@@ -76,5 +76,29 @@ class Distributeur {
     return remboursement;
   }
 
+  /**
+   * Calcule la répartition optimale des pièces pour rendre la monnaie.
+   * @param {number} montant - Montant de monnaie à rendre.
+   * @returns {Object} Un objet où chaque clé est la valeur de la pièce
+   *                   et la valeur est le nombre de pièces de cette valeur.
+   */
+  calculerMonnaieOptimale(montant) {
+    // Liste des pièces triée de la plus grande à la plus petite
+    const pieces = [10, 5, 2, 1, 0.5];
+    let reste = montant;
+    const result = {};
+
+    // Pour chaque pièce, calcule le nombre maximal possible dans le reste
+    pieces.forEach(piece => {
+      if (reste >= piece) {
+        const count = Math.floor(reste / piece);
+        result[piece] = count;
+        // Met à jour le reste à rendre
+        reste = parseFloat((reste - (count * piece)).toFixed(2));
+      }
+    });
+
+    return result;
+  }
   
 }

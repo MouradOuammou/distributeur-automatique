@@ -10,10 +10,10 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-
+const app = express();
 
 // Routes API
-app.use('/api', require('./routes/distributeurRoutes'));
+app.use('/api', require('./src/routes/distributeurRoutes'));
 
 // Servir les fichiers statiques (pour le frontend si intégré)
 app.use(express.static(path.join(__dirname, 'public')));

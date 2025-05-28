@@ -14,13 +14,18 @@
         @finaliser="finaliserAchat"
       />
     </div>
+
+    <!-- Messages d'erreur ou de statut -->
+    <div v-if="messageErreur" class="message-erreur">
+      {{ messageErreur }}
+    </div>
   </div>
 </template>
 
 <script setup>
 import { useDistributeurStore } from '@/stores/distributeur'
 import { storeToRefs } from 'pinia'
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import PieceInsertion from '@/components/PieceInsertion.vue'
 import ListeProduits from '@/components/ListeProduits.vue'
@@ -30,13 +35,26 @@ const router = useRouter()
 const store = useDistributeurStore()
 const { produits, panier, totalPanier } = storeToRefs(store)
 
+const messageErreur = ref('')
+
 const insererPiece = (montant) => store.insererPiece(montant)
 const ajouterAuPanier = (id) => store.ajouterAuPanier(id)
 
 async function finaliserAchat() {
-  const transaction = await store.finaliserAchat()
-  if (transaction) {
-    router.push({ name: 'confirmation', state: { transaction } })
+  try {
+    messageErreur.value = '' // Reset message d'erreur
+
+    const transaction = await store.finaliserAchat()
+
+    if (transaction) {
+      // Navigation simple - la transaction est sauvée dans le store
+      router.push('/confirmation')
+    } else {
+      messageErreur.value = 'Impossible de finaliser l\'achat. Vérifiez votre solde.'
+    }
+  } catch (error) {
+    console.error('Erreur lors de la finalisation:', error)
+    messageErreur.value = 'Une erreur est survenue lors de la transaction.'
   }
 }
 
@@ -51,10 +69,28 @@ onMounted(() => {
   margin: 0 auto;
   padding: 1rem;
 }
+
 .content {
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: 2rem;
   margin-top: 2rem;
+}
+
+.message-erreur {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: #fee;
+  border: 1px solid #fcc;
+  border-radius: 4px;
+  color: #c33;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .content {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
 }
 </style>

@@ -12,6 +12,19 @@ const cors = require('cors');
 const path = require('path');
 const app = express();
 
+
+// Configuration CORS
+const corsOptions = {
+  origin: process.env.CORS_ORIGIN || 'http://localhost:5173',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
+};
+
+// Middleware de parsing JSON
+app.use(cors(corsOptions));
+
+
 // Routes API
 app.use('/api', require('./src/routes/distributeurRoutes'));
 

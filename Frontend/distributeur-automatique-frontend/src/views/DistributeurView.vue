@@ -1,26 +1,32 @@
 <template>
-  <div class="distributeur">
-    <PieceInsertion @piece-inseree="insererPiece" />
+  <div class="distributeur" data-cy="distributeur-view">
+    <!-- Ajout data-cy sur PieceInsertion -->
+    <PieceInsertion @piece-inseree="insererPiece" data-cy="piece-insertion" />
 
     <div class="content">
+      <!-- Ajout data-cy sur ListeProduits -->
       <ListeProduits
         :produits="produits"
         @ajouter-panier="ajouterAuPanier"
+        data-cy="liste-produits"
       />
 
+      <!-- Ajout data-cy sur Panier -->
       <Panier
         :items="panier"
         :total="totalPanier"
         @finaliser="finaliserAchat"
+        data-cy="panier"
       />
     </div>
 
     <!-- Messages d'erreur ou de statut -->
-    <div v-if="messageErreur" class="message-erreur">
+    <div v-if="messageErreur" class="message-erreur" data-cy="message-erreur">
       {{ messageErreur }}
     </div>
   </div>
 </template>
+
 
 <script setup>
 import { useDistributeurStore } from '@/stores/distributeur'

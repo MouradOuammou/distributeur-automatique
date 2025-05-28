@@ -1,7 +1,7 @@
 <template>
   <header>
     <h1>Distributeur Automatique</h1>
-    <div class="solde">Solde: {{ solde }} MAD</div>
+    <div class="solde">Solde: {{ solde }} En MAD</div>
   </header>
   <main>
     <RouterView />

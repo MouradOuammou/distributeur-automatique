@@ -1,42 +1,53 @@
 <template>
-  <div class="confirmation">
+  <div class="confirmation" data-cy="confirmation-view">
     <!-- Affichage conditionnel si pas de transaction -->
-    <div v-if="!store.transaction" class="no-transaction">
+    <div v-if="!store.transaction" class="no-transaction" data-cy="no-transaction">
       <h2>Aucune transaction trouvée</h2>
       <p>Vous allez être redirigé vers l'accueil...</p>
     </div>
 
     <!-- Affichage normal si transaction existe -->
-    <div v-else>
+    <div v-else data-cy="transaction-info">
       <h2>Merci pour votre achat !</h2>
 
-      <div class="produits">
+      <div class="produits" data-cy="produits-distribues">
         <h3>Produits distribués:</h3>
         <ul>
-          <li v-for="produit in store.transaction.produits" :key="produit.id">
+          <li
+            v-for="produit in store.transaction.produits"
+            :key="produit.id"
+            data-cy="produit-item"
+          >
             {{ produit.nom }} - {{ produit.prix }} MAD
           </li>
         </ul>
       </div>
 
-      <div class="monnaie" v-if="store.transaction.monnaie && Object.keys(store.transaction.monnaie).length > 0">
+      <div
+        class="monnaie"
+        v-if="store.transaction.monnaie && Object.keys(store.transaction.monnaie).length > 0"
+        data-cy="monnaie-rendue"
+      >
         <h3>Monnaie rendue:</h3>
-        <div v-for="(quantite, piece) in store.transaction.monnaie" :key="piece">
+        <div
+          v-for="(quantite, piece) in store.transaction.monnaie"
+          :key="piece"
+          data-cy="piece-monnaie"
+        >
           {{ quantite }} x {{ piece }} MAD
         </div>
       </div>
 
-      <div class="total" v-if="store.transaction.total">
+      <div class="total" v-if="store.transaction.total" data-cy="total-paye">
         <h3>Total payé: {{ store.transaction.total }} MAD</h3>
       </div>
     </div>
 
-    <button @click="retourAccueil" class="retour">
+    <button @click="retourAccueil" class="retour" data-cy="btn-retour-accueil">
       Retour à l'accueil
     </button>
   </div>
 </template>
-
 <script setup>
 import { useRouter } from 'vue-router'
 import { useDistributeurStore } from '@/stores/distributeur'

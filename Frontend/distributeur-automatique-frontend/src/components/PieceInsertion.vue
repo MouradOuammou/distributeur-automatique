@@ -22,6 +22,7 @@
 </template>
 
 <script setup>
+// Définir la prop montantInsere
 defineProps({
   montantInsere: {
     type: Number,
@@ -33,44 +34,7 @@ const pieces = [0.5, 1, 2, 5, 10]
 const emit = defineEmits(['piece-inseree'])
 </script>
 
-<style scoped>
-.piece-insertion {
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  margin-bottom: 20px;
-}
 
-.montant-affiche {
-  background: #e8f5e8;
-  padding: 10px;
-  border-radius: 4px;
-  margin: 10px 0;
-  font-weight: bold;
-  color: #2d5a2d;
-}
-
-.pieces {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.btn-piece {
-  padding: 10px 15px;
-  background: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-.btn-piece:hover {
-  background: #0056b3;
-}
-</style>
 
 <style scoped>
 .pieces {

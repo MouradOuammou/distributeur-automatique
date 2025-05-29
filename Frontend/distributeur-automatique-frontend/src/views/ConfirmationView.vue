@@ -43,11 +43,12 @@
       </div>
     </div>
 
-    <button @click="retourAccueil" class="retour" data-cy="btn-retour-accueil">
+    <button @click="retourAccueil" class="btn-retour" data-cy="btn-retour-accueil">
       Retour à l'accueil
     </button>
   </div>
 </template>
+
 <script setup>
 import { useRouter } from 'vue-router'
 import { useDistributeurStore } from '@/stores/distributeur'
@@ -66,10 +67,13 @@ onMounted(() => {
 })
 
 const retourAccueil = () => {
-`  console.log('Retour à l\'accueil')`
+  console.log('Retour à l\'accueil')
+  // Nettoyer la transaction avant de retourner
+  store.reinitialiser()
   router.push('/')
 }
 </script>
+
 
 <style scoped>
 .confirmation {

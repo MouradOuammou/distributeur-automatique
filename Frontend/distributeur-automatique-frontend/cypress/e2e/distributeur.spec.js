@@ -1,6 +1,6 @@
 describe('DistributeurView', () => {
   beforeEach(() => {
-    cy.visit('/distributeur')
+    cy.visit('/')
   })
 
   it('charge la liste des produits', () => {

@@ -1,17 +1,19 @@
 <template>
-  <div class="piece-insertion">
+  <div class="piece-insertion" data-cy="piece-insertion">
     <h2>Insérer une pièce</h2>
     <div class="pieces">
       <button
         v-for="piece in pieces"
         :key="piece"
         @click="emit('piece-inseree', piece)"
+        data-cy="inserer-piece-button"
       >
         {{ piece }} MAD
       </button>
     </div>
   </div>
 </template>
+
 
 <script setup>
 const pieces = [0.5, 1, 2, 5, 10]

@@ -1,5 +1,5 @@
 <template>
-  <div class="liste-produits">
+  <div class="liste-produits" data-cy="liste-produits">
     <h2>Produits disponibles</h2>
     <div class="grid">
       <div
@@ -7,6 +7,7 @@
         :key="produit.id"
         class="produit"
         :class="{ 'non-disponible': !produit.achetable }"
+        :data-cy="produit.achetable ? 'btn-ajouter-panier' : null"
         @click="produit.achetable && emit('ajouter-panier', produit.id)"
       >
         <h3>{{ produit.nom }}</h3>
@@ -18,6 +19,7 @@
     </div>
   </div>
 </template>
+
 
 <script setup>
 defineProps({

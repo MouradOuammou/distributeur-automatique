@@ -1,12 +1,12 @@
 <template>
-  <div class="panier">
+  <div class="panier" data-cy="panier">
     <h2>Votre Panier</h2>
 
     <div v-if="items.length === 0" class="vide">
       Panier vide
     </div>
 
-    <div v-else>
+    <div v-else data-cy="panier-items">
       <div v-for="item in items" :key="item.id" class="item">
         <span>{{ item.nom }}</span>
         <span>{{ item.prix }} MAD</span>
@@ -16,12 +16,17 @@
         Total: <strong>{{ total }} MAD</strong>
       </div>
 
-      <button @click="emit('finaliser')" class="payer">
+      <button
+        @click="emit('finaliser')"
+        class="payer"
+        data-cy="btn-finaliser"
+      >
         Payer maintenant
       </button>
     </div>
   </div>
 </template>
+
 
 <script setup>
 defineProps({

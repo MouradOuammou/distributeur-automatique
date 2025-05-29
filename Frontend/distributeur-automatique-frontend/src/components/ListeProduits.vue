@@ -7,19 +7,26 @@
         :key="produit.id"
         class="produit"
         :class="{ 'non-disponible': !produit.achetable }"
-        :data-cy="produit.achetable ? 'btn-ajouter-panier' : null"
-        @click="produit.achetable && emit('ajouter-panier', produit.id)"
       >
         <h3>{{ produit.nom }}</h3>
         <div class="prix">{{ produit.prix }} MAD</div>
         <div v-if="!produit.achetable" class="indisponible">
           {{ produit.quantite > 0 ? 'Solde insuffisant' : 'Épuisé' }}
         </div>
+
+        <!-- Bouton avec data-cy correct -->
+        <button
+          v-if="produit.achetable"
+          @click="emit('ajouter-panier', produit.id)"
+          class="btn-ajouter"
+          data-cy="btn-ajouter-panier"
+        >
+          Ajouter au panier
+        </button>
       </div>
     </div>
   </div>
 </template>
-
 
 <script setup>
 defineProps({

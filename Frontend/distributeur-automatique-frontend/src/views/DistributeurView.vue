@@ -1,17 +1,19 @@
 <template>
   <div class="distributeur" data-cy="distributeur-view">
-    <!-- Ajout data-cy sur PieceInsertion -->
-    <PieceInsertion @piece-inseree="insererPiece" data-cy="piece-insertion" />
+    <!-- CORRECTION : Passer le montant inséré au composant -->
+    <PieceInsertion
+      @piece-inseree="insererPiece"
+      :montant-insere="montantInsere"
+      data-cy="piece-insertion"
+    />
 
     <div class="content">
-      <!-- Ajout data-cy sur ListeProduits -->
       <ListeProduits
         :produits="produits"
         @ajouter-panier="ajouterAuPanier"
         data-cy="liste-produits"
       />
 
-      <!-- Ajout data-cy sur Panier -->
       <Panier
         :items="panier"
         :total="totalPanier"
@@ -26,7 +28,6 @@
     </div>
   </div>
 </template>
-
 
 <script setup>
 import { useDistributeurStore } from '@/stores/distributeur'

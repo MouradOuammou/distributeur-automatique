@@ -10,11 +10,16 @@ const controleur = new DistributeurControleur(service);
 // Middleware de validation pour les routes POST
 const validateBody = (req, res, next) => {
   if (Object.keys(req.body).length === 0) {
+    if (req.path === '/pieces') {
+      return res.status(400).json({ erreur: "Montant invalide" });
+    }
+    if (req.path === '/panier') {
+      return res.status(400).json({ erreur: "id produit manquant" });
+    }
     return res.status(400).json({ erreur: "Corps de requête vide" });
   }
   next();
 };
-
 /**
  * GET /api - Récupère l'état courant
  */

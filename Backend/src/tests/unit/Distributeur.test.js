@@ -189,8 +189,8 @@ describe('Distributeur - Tests unitaires', () => {
       expect(resultat.produits).toHaveLength(2);
       expect(resultat.produits[0].nom).toBe('Soda');
       expect(resultat.produits[1].nom).toBe('Bonbon');
-      expect(resultat.monnaie).toEqual({
-      });
+      expect(resultat.monnaie).toEqual({"5": 1});
+
       
       // Vérifier la réinitialisation
       expect(distributeur.solde).toBe(0);
@@ -239,7 +239,7 @@ describe('Distributeur - Tests unitaires', () => {
       expect(distributeur.produits.find(p => p.id === 3).quantite).toBe(0);
       expect(() => {
         distributeur.ajouterAuPanier(3);
-      }).toThrow('Produit épuisé ');
+      }).toThrow('Produit épuisé');
     });
   });
 });

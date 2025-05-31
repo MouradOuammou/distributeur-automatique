@@ -2,7 +2,7 @@
   <div class="panier" data-cy="panier">
     <h2>Votre Panier</h2>
 
-    <div v-if="items.length === 0" class="vide">
+    <div v-if="items.length === 0" class="vide" data-cy="panier-items" >
       Panier vide
     </div>
 

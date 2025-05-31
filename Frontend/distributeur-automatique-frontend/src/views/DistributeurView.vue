@@ -3,7 +3,7 @@
     <!-- CORRECTION : Passer le montant inséré au composant -->
     <PieceInsertion
       @piece-inseree="insererPiece"
-      :montant-insere="montantInsere"
+      :montant-insere="solde"
       data-cy="piece-insertion"
     />
 
@@ -40,7 +40,7 @@ import Panier from '@/components/Panier.vue'
 
 const router = useRouter()
 const store = useDistributeurStore()
-const { produits, panier, totalPanier } = storeToRefs(store)
+const { produits, panier, totalPanier ,solde } = storeToRefs(store)
 
 const messageErreur = ref('')
 

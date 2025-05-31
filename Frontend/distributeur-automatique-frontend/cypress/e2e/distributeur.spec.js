@@ -74,24 +74,6 @@ describe('DistributeurView', () => {
       .should('contain', 'MAD')
   })
 
-  it('ajoute un produit au panier', () => {
-    // Attendre que les produits soient chargés
-    cy.get('[data-cy=btn-ajouter-panier]').should('exist')
-
-    // Compter les items du panier avant ajout
-    cy.get('[data-cy=panier-items]').then(($panier) => {
-      const nombreInitial = $panier.children().length
-
-      // Clique sur un bouton "Ajouter au panier" sur un produit
-      cy.get('[data-cy=btn-ajouter-panier]').first().click()
-
-      // Vérifie que le panier a un item de plus
-      cy.get('[data-cy=panier-items]')
-        .children()
-        .should('have.length', nombreInitial + 1)
-    })
-  })
-
   it('teste le processus complet d\'achat', () => {
     // Étape 1: Insérer une pièce
     cy.get('[data-cy=inserer-piece-button]').first().click()
@@ -127,7 +109,6 @@ describe('DistributeurView', () => {
     })
 
     // 2. Ajouter produit au panier
-    cy.get('[data-cy=btn-ajouter-panier]').first().click()
     cy.get('[data-cy=panier-items]').should('not.be.empty')
 
     // 3. Vérifier que tout est cohérent

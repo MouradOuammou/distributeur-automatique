@@ -69,6 +69,13 @@ export const useDistributeurStore = defineStore('distributeur', () => {
       return null
     }
   }
+   function reinitialiser() {
+    solde.value = 0
+    panier.value = []
+    transaction.value = null
+    produits.value = []
+  }
+
 
   return {
     solde,
@@ -80,6 +87,7 @@ export const useDistributeurStore = defineStore('distributeur', () => {
     chargerProduits,
     insererPiece,
     ajouterAuPanier,
-    finaliserAchat
+    finaliserAchat,
+    reinitialiser
   }
 })

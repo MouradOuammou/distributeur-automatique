@@ -68,7 +68,6 @@ onMounted(() => {
 
 const retourAccueil = () => {
   console.log('Retour à l\'accueil')
-  // Nettoyer la transaction avant de retourner
   store.reinitialiser()
   router.push('/')
 }

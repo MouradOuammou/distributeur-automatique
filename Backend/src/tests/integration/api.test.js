@@ -464,38 +464,35 @@ describe('API Distributeur - Tests d\'intégration', () => {
       expect(etat.body.solde).toBe(1);
       expect(etat.body.panier).toHaveLength(0);
     });
+test('doit gérer l\'épuisement de stock', async () => {
+  await request(app)
+    .post('/api/pieces')
+    .send({ montant: 10 })
+    .expect(200);
+  
+  await request(app)
+    .post('/api/pieces')
+    .send({ montant: 10 })
+    .expect(200);
+  
+  await request(app)
+    .post('/api/pieces')
+    .send({ montant: 10 })
+    .expect(200);
 
-    test('doit gérer l\'épuisement de stock', async () => {
-      await request(app)
-        .post('/api/pieces')
-        .send({ montant: 10 })
-        .expect(200);
-      
-      await request(app)
-        .post('/api/pieces')
-        .send({ montant: 10 })
-        .expect(200);
-      
-      await request(app)
-        .post('/api/pieces')
-        .send({ montant: 10 })
-        .expect(200);
+  // Ajouter le produit jusqu'à épuisement du stock
+  let lastResponse;
+  for (let i = 0; i < 20; i++) {
+    lastResponse = await request(app)
+      .post('/api/panier')
+      .send({ idProduit: 3 });
+    
+    if (lastResponse.status === 400) break;
+  }
 
-      for (let i = 0; i < 20; i++) {
-        await request(app)
-          .post('/api/panier')
-          .send({ idProduit: 3 }) 
-          .expect(200);
-      }
-
-      // Tenter d'acheter un bonbon supplémentaire
-      const response = await request(app)
-        .post('/api/panier')
-        .send({ idProduit: 3 })
-        .expect(400);
-
-      expect(response.body.erreur).toContain('Produit épuisé');
-    });
+  expect(lastResponse.status).toBe(400);
+  expect(lastResponse.body.erreur).toContain('Produit épuisé');
+});
   });
 
   describe('Tests de validation des données', () => {

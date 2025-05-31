@@ -3,7 +3,7 @@
     <h2>Insérer une pièce</h2>
 
     <!-- Affichage du montant inséré -->
-    <div v-if="montantInsere > 0" class="montant-affiche" data-cy="montant-inseré">
+    <div v-if="montantInsere > 0" class="montant-affiche" data-cy="montant-insere">
       Montant inséré: {{ montantInsere }} MAD
     </div>
 

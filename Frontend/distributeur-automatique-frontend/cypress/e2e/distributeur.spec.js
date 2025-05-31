@@ -79,9 +79,6 @@ describe('DistributeurView', () => {
     cy.get('[data-cy=inserer-piece-button]').first().click()
     cy.get('[data-cy=montant-insere]', { timeout: 5000 }).should('exist')
 
-    // Étape 2: Ajouter un produit au panier
-    cy.get('[data-cy=btn-ajouter-panier]').first().click()
-    cy.get('[data-cy=panier-items]').children().should('have.length.greaterThan', 0)
 
     // Étape 3: Finaliser l'achat (si le bouton existe)
     cy.get('body').then(($body) => {

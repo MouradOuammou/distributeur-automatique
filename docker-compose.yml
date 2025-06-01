@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  # Service Backend Express
+  backend:
+    build:
+      context: ./Backend
+      dockerfile: Dockerfile
+    image: distributeur-backend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - CORS_ORIGIN=http://localhost:5173
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Service Frontend Vue.js
+  frontend:
+    build:
+      context: ./Frontend/distributeur-automatique-frontend
+      dockerfile: Dockerfile
+    image: distributeur-frontend
+    ports:
+      - "5173:80"  
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

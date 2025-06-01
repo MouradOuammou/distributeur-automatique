@@ -1,2 +1,1 @@
 # distributeur-automatique-frontend
-
